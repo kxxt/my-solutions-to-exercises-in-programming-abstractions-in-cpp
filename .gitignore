@@ -1,4 +1,12 @@
 build-*/
+*.pro.user
+*/debug/
+*/release/
+*/Makefile
+*/Makefile.Debug
+*/Makefile.Release
+*/.qmake.cache
+*/.qmake.stash
 
 # Prerequisites
 *.d
