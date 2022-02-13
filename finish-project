@@ -1,0 +1,19 @@
+#!/bin/sh
+
+if [ "$#" -ne 1 ]; then
+    echo "Please provide exactly one argument!"
+    exit 128
+fi
+
+set -e
+
+echo "Adding files to git..."
+git add "$1"
+
+echo "Committing..."
+git commit -m "Finish exercise $1."
+
+echo "Pushing..."
+git push origin main
+
+echo "All done."
