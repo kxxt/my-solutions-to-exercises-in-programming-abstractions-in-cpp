@@ -1,0 +1,28 @@
+#!/bin/sh
+
+if [ "$#" -ne 1 ]; then
+    echo "Please provide exactly one argument!"
+fi
+
+project=$(echo "$1" | cut -d '-' -f 3)
+
+if [ $? -ne 0 ]; then
+    echo "Argument 1: Invalid format. (A valid example: 4-2-helloWorld)"
+    exit 128
+fi
+
+cp -r empty-project "$1"
+
+if [ $? -ne 0 ]; then
+    echo "Failed to copy project template to $1"
+    exit 74
+fi
+
+mv "$1/empty-project.pro" "$1/$project.pro"
+
+if [ $? -ne 0 ]; then
+    echo "Failed to rename project configuration file to $project.pro"
+    exit 74
+else
+    echo "OK"
+fi
