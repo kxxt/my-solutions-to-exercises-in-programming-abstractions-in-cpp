@@ -2,9 +2,10 @@
 
 if [ "$#" -ne 1 ]; then
     echo "Please provide exactly one argument!"
+    exit 128
 fi
 
-project=$(echo "$1" | cut -d '-' -f 3)
+project=$(echo "$1-project-project" | cut -d '-' -f 3)
 
 if [ $? -ne 0 ]; then
     echo "Argument 1: Invalid format. (A valid example: 4-2-helloWorld)"
@@ -24,5 +25,16 @@ if [ $? -ne 0 ]; then
     echo "Failed to rename project configuration file to $project.pro"
     exit 74
 else
-    echo "OK"
+    echo "Project created."
 fi
+
+echo "Committing the new project into Git..."
+
+set -e
+
+git add "$1"
+git commit -m "Initialized new project $1"
+
+echo "Project committed into git"
+
+
