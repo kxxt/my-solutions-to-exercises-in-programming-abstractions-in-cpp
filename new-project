@@ -35,6 +35,11 @@ set -e
 git add "$1"
 git commit -m "Initialized new project $1"
 
-echo "Project committed into git"
+echo "Project committed into git."
 
+echo "Launching qtcreator..."
+qtcreator -client -notour "$1/$project.pro" > /dev/null 2>&1 &
+
+
+echo "All done."
 
