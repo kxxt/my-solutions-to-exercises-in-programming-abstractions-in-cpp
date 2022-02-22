@@ -125,10 +125,12 @@ PRECOMPILED_HEADER = $$files($$PWD/lib/StanfordCPPLib/private/precompiled.h)
 # out SOURCES, so that the Qt Creator .pro modification is ineffectual.
 DISTFILES *= ""
 DISTFILES = ""
-HEADERS *= ""
+HEADERS *= "" \
+  src/board.h
 HEADERS = ""
 SOURCES *= "" \
-    main.cpp
+    main.cpp \
+    src/board.cpp
 SOURCES = ""
 
 # include various source .cpp files and header .h files in the build process
