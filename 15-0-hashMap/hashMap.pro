@@ -125,10 +125,12 @@ PRECOMPILED_HEADER = $$files($$PWD/lib/StanfordCPPLib/private/precompiled.h)
 # out SOURCES, so that the Qt Creator .pro modification is ineffectual.
 DISTFILES *= ""
 DISTFILES = ""
-HEADERS *= ""
+HEADERS *= "" \
+  src/stringmap.h
 HEADERS = ""
 SOURCES *= "" \
-    main.cpp
+    main.cpp \
+    src/stringmap.cpp
 SOURCES = ""
 
 # include various source .cpp files and header .h files in the build process
@@ -207,10 +209,10 @@ QMAKE_CXXFLAGS_WARN_ON -= -W
 
 win32 {
     # some Windows systems have old MinGW compilers, so be safe and use C++11
-    CONFIG += c++11
+    CONFIG += c++17
 } else {
     # Mac/Linux should support the latest C++ features
-    CONFIG += c++14
+    CONFIG += c++17
 }
 
 # uncomment this if you want to dump the preprocessor output into the .o files
