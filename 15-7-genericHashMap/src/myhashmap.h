@@ -72,7 +72,7 @@ std::optional<V> HashMap<K, V>::get(const K &key) const noexcept {
   int bucketId = hashcode(key) % nBuckets;
   if (auto ptr = findCell(bucketId, key))
     return ptr->value;
-  return std::optional<std::string>();
+  return std::optional<V>();
 }
 
 template <typename K, typename V>
