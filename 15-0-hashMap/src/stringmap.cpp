@@ -12,6 +12,8 @@ int hashcode(string const &str) noexcept {
 StringMap::StringMap() {
   nBuckets = INITIAL_BUCKET_COUNT;
   buckets = new Cell *[nBuckets];
+  for (auto i = 0; i < nBuckets; i++)
+    buckets[i] = nullptr;
 }
 
 StringMap::~StringMap() {
