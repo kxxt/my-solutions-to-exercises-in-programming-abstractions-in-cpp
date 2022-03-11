@@ -1,0 +1,80 @@
+#include "console.h"
+#include "stringmap.h"
+#include <cassert>
+#include <iostream>
+using namespace std;
+
+int main() {
+  cout << "Tests for StringMap:" << endl;
+  StringMap map;
+  // it should be empty
+  assert(map.size() == 0);
+  assert(!map.get("asfadgf"));
+
+  map.put("Hello", "World");
+  assert(map.size() == 1);
+  assert(map.get("Hello") == "World");
+  // get it for a second time.
+  assert(map.get("Hello") == "World");
+
+  // modify previous item
+  map.put("Hello", "asd");
+  assert(map.get("Hello") == "asd");
+  assert(map.size() == 1);
+
+  // add a second item
+  map.put("Hda asfds", "234");
+  assert(map.size() == 2);
+  // the first item should still be there
+  assert(map.get("Hello") == "asd");
+  // test the second item
+  assert(map.get("Hda asfds") == "234");
+
+  // trigger a rehash
+  for (auto i = 0; i < 15; i++)
+    map.put(to_string(i), to_string(i) + "***");
+  assert(map.size() == 17);
+  for (auto i = 0; i < 15; i++)
+    assert(map.get(to_string(i)) == to_string(i) + "***");
+  assert(map.get("Hello") == "asd");
+  assert(map.get("Hda asfds") == "234");
+
+  // add Hello
+  map.add("Hello", "00000");
+  assert(map.size() == 18);
+  assert(map.get("Hello") == "00000");
+  map.remove("Hello");
+  assert(map.size() == 17);
+  assert(map.get("Hello") == "asd");
+
+  // add Hello twice
+  map.add("Hello", "00000");
+  assert(map.size() == 18);
+  assert(map.get("Hello") == "00000");
+
+  map.add("Hello", "11111"); // rehash
+  assert(map.get("Hello") == "11111");
+  assert(map.size() == 19);
+
+  map.remove("Hello");
+  assert(map.size() == 18);
+  assert(map.get("Hello") == "00000");
+
+  map.remove("Hello");
+  assert(map.size() == 17);
+  assert(map.get("Hello") == "asd");
+
+  // trigger another rehash
+  for (auto i = 0; i < 15; i++)
+    map.add(to_string(i), to_string(i) + "===");
+
+  assert(map.size() == 32);
+  for (auto i = 0; i < 15; i++)
+    assert(map.get(to_string(i)) == to_string(i) + "===");
+  assert(map.get("Hello") == "asd");
+  assert(map.get("Hda asfds") == "234");
+  map.remove("6");
+  assert(map.get(to_string(6)) == to_string(6) + "***");
+  cout << "OK" << endl;
+  return 0;
+}
