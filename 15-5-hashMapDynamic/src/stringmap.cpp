@@ -9,7 +9,11 @@ int hashcode(string const &str) noexcept {
   return static_cast<int>(hash & HASH_MASK);
 }
 
-StringMap::StringMap() { buckets = new Cell *[nBuckets]; }
+StringMap::StringMap() {
+  buckets = new Cell *[nBuckets];
+  for (auto i = 0; i < nBuckets; i++)
+    buckets[i] = nullptr;
+}
 
 StringMap::~StringMap() {
   for (auto i = 0; i < nBuckets; i++) {
@@ -69,6 +73,8 @@ void StringMap::rehash() {
   nBuckets = 2 * nBuckets;
   auto oldBuckets = buckets;
   buckets = new Cell *[nBuckets];
+  for (auto i = 0; i < nBuckets; i++)
+    buckets[i] = nullptr;
   for (auto i = 0; i < oldN; i++) {
     auto ptr = oldBuckets[i];
     while (ptr != nullptr) {
